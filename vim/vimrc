@@ -1,0 +1,161 @@
+" Vundle stuff
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" ------ Insert plugins here ------
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'digitaltoad/vim-pug'
+Plugin 'hynek/vim-python-pep8-indent'
+Plugin 'scrooloose/syntastic'
+Plugin 'scrooloose/nerdtree'
+Plugin 'fatih/vim-go'
+Plugin 'lervag/vimtex'
+
+" ------ Disable version warnings for vim-go
+let g:go_version_warning = 0
+
+" ------ Until here ------
+call vundle#end()
+filetype plugin indent on
+
+
+
+" ---------------- Auto Commands ---------------
+
+" 80-char line coloring
+if exists('+colorcolumn')
+    set colorcolumn=80
+else
+    au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+endif
+
+" Remove all trailing whitespace
+autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+
+" If textfile, wrap at 80
+autocmd BufRead *.txt set tw=80
+
+if exists("+undofile")
+    " undofile - This allows you to use undos after exiting and restarting
+    " This, like swap and backups, uses .vim-undo first, then ~/.vim/undo
+    " :help undo-persistence
+    " This is only present in 7.3+
+    if isdirectory($HOME . '/.vim/undo') == 0
+        :silent !mkdir -p ~/.vim/undo > /dev/null 2>&1
+    endif
+    set undodir=./.vim-undo//
+    set undodir+=~/.vim/undo//
+    set undofile
+endif
+
+" Super retab "
+
+:command! -nargs=1 -range SuperRetab <line1>,<line2>s/\v%(^ *)@<= {<args>}/\t/g
+:command! -range=% -nargs=0 Tab2Space execute '<line1>,<line2>s#^\t\+#\=repeat(" ", len(submatch(0))*' . &ts . ')'
+:command! -range=% -nargs=0 Space2Tab execute '<line1>,<line2>s#^\( \{'.&ts.'\}\)\+#\=repeat("\t", len(submatch(0))/' . &ts . ')'
+
+" ------------ Global --------------
+
+colorscheme Tomorrow-Night-Bright
+
+set number
+
+" Shows what you're typing as a command
+set showcmd
+
+" Set the mouse
+set mouse=n
+
+" Proper syntax highlighting
+filetype plugin indent on
+syntax on
+
+" Indenting
+set smartindent
+set autoindent
+set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
+set softtabstop=4
+
+" Ruler rules
+set ruler
+
+" Tab completion
+set wildmenu
+set wildmode=list:longest,full
+
+" Casing
+set ignorecase
+set smartcase
+
+" highlight search results
+set hlsearch
+
+" When I close a tab, remove the buffer
+set nohidden
+
+" Set of the other paren
+highlight MatchParen ctermbg=4
+
+" Set 7 lines to the cursor when moving vertical
+set so=7
+
+" Increased search
+set incsearch
+
+" It's a kinda
+set magic
+
+" Show matching bracket
+set showmatch
+
+" word wrappings at line breaks
+set wrap
+set linebreak
+
+" ------------ Mappings -------------
+
+" The smash escape
+inoremap jkl <esc>
+inoremap jlk <esc>
+inoremap kjl <esc>
+inoremap klj <esc>
+inoremap ljk <esc>
+inoremap lkj <esc>
+
+" Make Y work like D and C
+map Y y$
+
+" Write, pdflatex and open it up
+nnoremap <silent> <F2> :w<CR>:!pdflatex % && F=% && open ${F\%.*}.pdf<CR><CR>
+
+" Make j and k work as expected
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+
+" Swap ; and : since you use the last one way more often, so whay make it
+" harder
+nnoremap ; :
+nnoremap : ;
+
+" Easier split window navigation
+nnoremap <up> <C-w>k
+nnoremap <down> <C-w>j
+nnoremap <left> <C-w>h
+nnoremap <right> <C-w>l
+
+
+"Tab for autocompletion
+function! SuperTab()
+    if (strpart(getline('.'),col('.')-2,1)=~'^\W\?$')
+        return "\<Tab>"
+    else
+        return "\<C-n>"
+    endif
+endfunction
+imap <Tab> <C-R>=SuperTab()<CR>
