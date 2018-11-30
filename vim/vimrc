@@ -1,4 +1,6 @@
 " Vundle stuff
+" Set shell to bash to make sure the vundle update process works
+set shell=bash
 set nocompatible
 filetype off
 
@@ -8,11 +10,12 @@ call vundle#begin()
 
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'digitaltoad/vim-pug'
-Plugin 'hynek/vim-python-pep8-indent'
-Plugin 'scrooloose/syntastic'
+Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'vim-syntastic/syntastic'
 Plugin 'scrooloose/nerdtree'
 Plugin 'fatih/vim-go'
 Plugin 'lervag/vimtex'
+Plugin 'flazz/vim-colorschemes'
 
 " ------ Disable version warnings for vim-go
 let g:go_version_warning = 0
@@ -59,7 +62,7 @@ endif
 
 " ------------ Global --------------
 
-colorscheme Tomorrow-Night-Bright
+" colorscheme base16-classic-light
 
 set number
 
