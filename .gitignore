@@ -1,3 +1,7 @@
+# Ignore swap files
+*.swp
+*.swa
+
 # Ignore the Vundle bundle folder
 vim/bundle/*
 vim/undo/*
