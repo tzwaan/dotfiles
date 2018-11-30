@@ -1,0 +1,3 @@
+# Ignore the Vundle bundle folder
+vim/bundle/*
+vim/undo/*
