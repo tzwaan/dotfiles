@@ -17,6 +17,8 @@ Plugin 'fatih/vim-go'
 Plugin 'lervag/vimtex'
 Plugin 'flazz/vim-colorschemes'
 
+Bundle 'lepture/vim-jinja'
+
 " ------ Disable version warnings for vim-go
 let g:go_version_warning = 0
 
@@ -63,6 +65,7 @@ endif
 " ------------ Global --------------
 
 " colorscheme base16-classic-light
+set background=dark
 
 set number
 
