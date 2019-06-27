@@ -18,6 +18,7 @@ Plugin 'lervag/vimtex'
 Plugin 'flazz/vim-colorschemes'
 
 Bundle 'lepture/vim-jinja'
+Bundle 'dag/vim-fish'
 
 " ------ Disable version warnings for vim-go
 let g:go_version_warning = 0
