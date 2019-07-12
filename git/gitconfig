@@ -1,0 +1,23 @@
+[user]
+	name = Tijmen Zwaan
+	email = tijmen.zwaan@gmail.com
+
+[auto]
+    color = true
+
+[ui]
+    color = auto
+
+[core]
+    excludefile = ~/dotfiles/git/gitignore_global
+    editor = vim
+
+[help]
+    autocorrect = 1
+
+[push]
+    default = current
+    followTags = true
+
+[status]
+    showUntrackedFiles = all
