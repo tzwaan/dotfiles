@@ -4,7 +4,7 @@ BACKUP_DIR=$PWD/backup/
 ORIGINAL_BASHRC=$HOME/.bashrc
 ORIGINAL_VIMRC=$HOME/.vimrc
 ORIGINAL_FISHCONF_FOLDER=$HOME/.config/fish/
-ORIGINAL_GITCONF=@HOME/.gitconfig
+ORIGINAL_GITCONF=$HOME/.gitconfig
 
 # Backup current dotfiles
 declare -a Files=("$ORIGINAL_BASHRC" "$ORIGINAL_VIMRC" \
@@ -32,3 +32,5 @@ ln -sf $PWD/vim/vimrc $ORIGINAL_VIMRC
 ln -sf $PWD/vim/vimrc $HOME/.vim/init.vim
 ln -sf $PWD/fish/* $ORIGINAL_FISHCONF_FOLDER
 ln -sf $PWD/git/gitconfig $ORIGINAL_GITCONF
+
+chsh -s /usr/bin/fish
