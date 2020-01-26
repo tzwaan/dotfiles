@@ -1,15 +1,20 @@
 #!/bin/bash
 
-BACKUP_DIR=$PWD/backup
+BACKUP_DIR=$PWD/backup/
 ORIGINAL_BASHRC=$HOME/.bashrc
 ORIGINAL_VIMRC=$HOME/.vimrc
 ORIGINAL_FISHCONF_FOLDER=$HOME/.config/fish/
 ORIGINAL_GITCONF=@HOME/.gitconfig
 
 # Backup current dotfiles
+declare -a Files=("$ORIGINAL_BASHRC" "$ORIGINAL_VIMRC" \
+    "$ORIGINAL_FISHCONF_FOLDER" "$ORIGINAL_GITCONF")
+
 mkdir -p $BACKUP_DIR
-mv $ORIGINAL_BACHRC $ORIGINAL_VIMRC $ORIGINAL_FISHCONF_FOLDER \
-       	$ORIGINAL_GITCONF $BACKUP_DIR
+for file in ${Files[@]}; do
+    echo $file
+    [ -f file ] && mv "$fie" "$BACKUP_DIR";
+done
 
 # Create vim folders
 mkdir -p ~/.vim/{autoload,colors}
