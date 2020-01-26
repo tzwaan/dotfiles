@@ -6,6 +6,11 @@ ORIGINAL_VIMRC=$HOME/.vimrc
 ORIGINAL_FISHCONF_FOLDER=$HOME/.config/fish/
 ORIGINAL_GITCONF=@HOME/.gitconfig
 
+# Backup current dotfiles
+mkdir -p $BACKUP_DIR
+mv $ORIGINAL_BACHRC $ORIGINAL_VIMRC $ORIGINAL_FISHCONF_FOLDER \
+       	$ORIGINAL_GITCONF $BACKUP_DIR
+
 # Create vim folders
 mkdir -p ~/.vim/{autoload,colors}
 mkdir -p ~/.config

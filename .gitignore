@@ -2,6 +2,9 @@
 *.swp
 *.swa
 
+# Ignore the backup directory
+backup/*
+
 # Ignore the Vundle bundle folder
 vim/bundle/*
 vim/undo/*
