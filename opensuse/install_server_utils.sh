@@ -10,11 +10,11 @@ PHP_ORIGINAL_WWW=/etc/php7/fpm/php-fpm.d/www.conf
 
 source config.cfg
 
-echo "Installing server essentials"
-echo "... Installing devel_basis packages"
+echo -e "\n\nInstalling server essentials"
+echo -e "\n\nInstalling devel_basis packages"
 zypper install -y --type pattern devel_basis
 
-echo "... Installing packagees"
+echo -e "\n\nInstalling packagees"
 zypper install -y vim git python-pip python3-pip\
 	htop python-devel python3-devel tig curl fish\
 	tmux whois wget neovim cmake pyenv\
@@ -22,13 +22,24 @@ zypper install -y vim git python-pip python3-pip\
 	readline-devel sqlite3 sqlite3-devel xz xz-devel\
     moreutils nginx
 
-echo "... Cloning pyenv virtualenv"
+echo -e "\n\nCloning pyenv virtualenv"
 git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
 
-echo "... Setting up nginx"
+echo -e "\n\nSetting up nginx"
 
-mv $NGINX_ORIGINAL_CONFD $NGINX_BACKUP_DIR
-mv $NGINX_ORIGINAL_NGINX_CONF $NGINX_BACKUP_DIR
+echo -e "\n\nMaking backups of existing files"
+declare -a files=("$NGINX_ORIGINAL_CONFD" "$NGINX_ORIGINAL_NGINX_CONF" \
+    "$NGINX_ORIGINAL_CONFD" "$NGINX_ORIGINAL_NGINX_CONF")
+
+for file in ${files[@]}; do
+    if [[ ( -f $file || -d $file ) $$ ! -L $file ]]
+    then
+        echo -e "  Moving $file to $NGINX_BACKUP_DIR"
+        mv $file $NGINX_BACKUP_DIR
+    else
+        echo -e "  $file is already a symbolic link. No backup required"
+    fi
+done
 
 ln -sf $NGINX/conf.d $NGINX_ORIGINAL_CONFD
 ln -sf $NGINX/nginx.conf $NGINX_ORIGINAL_NGINX_CONF
@@ -38,22 +49,21 @@ systemctl enable nginx
 systemctl status nginx
 nginx -s reload
 
-echo "... Setting up firewall"
+echo -e "\n\nSetting up firewall"
 firewall-cmd --zone=public --add-service=http --permanent
 firewall-cmd --zone=public --add-service=https --permanent
 firewall-cmd --reload
 
-echo "... Installing certbot"
+echo -e "\n\nInstalling certbot"
 zypper install certbot python-certbot-nginx
 
-echo "... Setting up mysql"
+echo -e "\n\nSetting up mysql"
 zypper install mariadb mariadb-client \
     php7-mysql php7-fpm php7-gd php7-mbstring
+
 mysqladmin -u $mysql_root password $mysql_root_password
 
-echo "... Setting up php"
-mv $PHP_ORIGINAL_FPM $NGINX_BACKUP_DIR
-mv $PHP_ORIGINAL_WWW $NGINX_BACKUP_DIR
+echo -e "\n\nSetting up php"
 
 ln -sf $NGINX/php-fpm.conf $PHP_ORIGINAL_FPM
 ln -sf $NGINX/www.conf $PHP_ORIGINAL_WWW
