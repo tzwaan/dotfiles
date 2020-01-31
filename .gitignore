@@ -2,6 +2,9 @@
 *.swp
 *.swa
 
+# Ignore config files
+*.cfg
+
 # Ignore the backup directory
 backup/*
 
