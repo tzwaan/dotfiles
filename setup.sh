@@ -26,7 +26,7 @@ done
 
 echo -e "\n\n==========  Creating vim folders  =========="
 mkdir -p $HOME/.vim/{autoload,colors}
-ln -s $HOME/.vim $HOME/.config/nvim
+ln -snf $HOME/.vim $HOME/.config/nvim
 
 echo -e "\n\n==========  Installing vim-plug plugin manager  =========="
 wget -O ~/.config/nvim/autoload/plug.vim \
@@ -35,19 +35,19 @@ wget -O ~/.config/nvim/autoload/plug.vim \
 
 echo -e "\n\n==========  Creating symlinks to dotfiles  =========="
 echo $ORIGINAL_BASHRC
-ln -sf $PWD/bash/bashrc $ORIGINAL_BASHRC
+ln -snf $PWD/bash/bashrc $ORIGINAL_BASHRC
 
 echo $ORIGINAL_VIMRC
-ln -sf $PWD/vim/vimrc $ORIGINAL_VIMRC
+ln -snf $PWD/vim/vimrc $ORIGINAL_VIMRC
 
 echo "$HOME/.vim/init.vim"
-ln -sf $PWD/vim/vimrc $HOME/.vim/init.vim
+ln -snf $PWD/vim/vimrc $HOME/.vim/init.vim
 
 echo $ORIGINAL_FISHCONF_FOLDER
-ln -sf $PWD/fish $ORIGINAL_FISHCONF_FOLDER
+ln -snf $PWD/fish $ORIGINAL_FISHCONF_FOLDER
 
 echo $ORIGINAL_GITCONF
-ln -sf $PWD/git/gitconfig $ORIGINAL_GITCONF
+ln -snf $PWD/git/gitconfig $ORIGINAL_GITCONF
 
 echo -e "\n\n==========  Setting default shell to fish (needs password) =========="
 chsh -s /usr/bin/fish

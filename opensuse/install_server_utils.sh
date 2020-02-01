@@ -41,8 +41,8 @@ for file in ${files[@]}; do
     fi
 done
 
-ln -sf $NGINX/conf.d $NGINX_ORIGINAL_CONFD
-ln -sf $NGINX/nginx.conf $NGINX_ORIGINAL_NGINX_CONF
+ln -snf $NGINX/conf.d $NGINX_ORIGINAL_CONFD
+ln -snf $NGINX/nginx.conf $NGINX_ORIGINAL_NGINX_CONF
 
 systemctl start nginx
 systemctl enable nginx
@@ -65,8 +65,8 @@ mysqladmin -u $mysql_root password $mysql_root_password
 
 echo -e "\n\nSetting up php"
 
-ln -sf $NGINX/php-fpm.conf $PHP_ORIGINAL_FPM
-ln -sf $NGINX/www.conf $PHP_ORIGINAL_WWW
+ln -snf $NGINX/php-fpm.conf $PHP_ORIGINAL_FPM
+ln -snf $NGINX/www.conf $PHP_ORIGINAL_WWW
 
 systemctl start php-fpm
 systemctl enable php-fpm
