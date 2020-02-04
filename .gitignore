@@ -11,3 +11,7 @@ backup/*
 # Ignore the Vundle bundle folder
 vim/bundle/*
 vim/undo/*
+
+# Ignore generated fish files
+/fish/*
+!/fish/*.fish
