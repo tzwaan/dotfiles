@@ -1,4 +1,10 @@
 #!/bin/bash
+lecho() {
+    echo -e "\n\n==========  $@  =========="
+}
+secho() {
+    echo -e "==========  ....  $@ =========="
+}
 
 BACKUP_DIR=$PWD/backup/
 ORIGINAL_BASHRC=$HOME/.bashrc
@@ -12,7 +18,7 @@ mkdir -p $HOME/.config
 declare -a Files=("$ORIGINAL_BASHRC" "$ORIGINAL_VIMRC" \
     "$ORIGINAL_FISHCONF_FOLDER" "$ORIGINAL_GITCONF")
 
-echo -e "\n\n==========  Making backups of existing files  =========="
+lecho "Making backups of existing files"
 mkdir -p $BACKUP_DIR
 for file in ${Files[@]}; do
     if [[ ( -f $file || -d $file ) && ! -L $file ]]
@@ -24,16 +30,23 @@ for file in ${Files[@]}; do
     fi
 done
 
-echo -e "\n\n==========  Creating vim folders  =========="
+lecho "Creating vim folders"
 mkdir -p $HOME/.vim/{autoload,colors}
 ln -snf $HOME/.vim $HOME/.config/nvim
 
-echo -e "\n\n==========  Installing vim-plug plugin manager  =========="
+lecho "Installing vim-plug plugin managers"
+secho "Installing nvim vim-plug"
 wget -O ~/.config/nvim/autoload/plug.vim \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+secho "Installing vim Vundle"
+git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
 
-echo -e "\n\n==========  Creating symlinks to dotfiles  =========="
+secho "Installing vim Vundle plugins"
+vim +PluginInstall +qall
+
+
+lecho "Creating symlinks to dotfiles"
 echo $ORIGINAL_BASHRC
 ln -snf $PWD/bash/bashrc $ORIGINAL_BASHRC
 
@@ -49,5 +62,5 @@ ln -snf $PWD/fish $ORIGINAL_FISHCONF_FOLDER
 echo $ORIGINAL_GITCONF
 ln -snf $PWD/git/gitconfig $ORIGINAL_GITCONF
 
-echo -e "\n\n==========  Setting default shell to fish (needs password) =========="
+lecho "Setting default shell to fish (needs password)"
 chsh -s /usr/bin/fish
