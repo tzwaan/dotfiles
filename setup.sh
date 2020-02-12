@@ -1,4 +1,6 @@
 #!/bin/bash
+cd "$(dirname "$0")"
+
 lecho() {
     echo -e "\n\n==========  $@  =========="
 }
