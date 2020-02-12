@@ -147,6 +147,10 @@ map Y y$
 " Write, pdflatex and open it up
 nnoremap <silent> <F2> :w<CR>:!pdflatex % && F=% && open ${F\%.*}.pdf<CR><CR>
 
+" Write and compile sass
+command! Sass execute ":w | !sassc " . expand('%') . " " . expand('%:r') . ".css"
+nnoremap <F3> :Sass<CR><CR>
+
 " Make j and k work as expected
 nnoremap <silent> j gj
 nnoremap <silent> k gk
