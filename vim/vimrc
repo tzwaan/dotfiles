@@ -16,6 +16,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'fatih/vim-go'
 Plugin 'lervag/vimtex'
 Plugin 'flazz/vim-colorschemes'
+" Plugin 'cakebaker/scss-syntax.vim'
 
 Bundle 'lepture/vim-jinja'
 Bundle 'dag/vim-fish'
