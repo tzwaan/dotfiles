@@ -78,3 +78,4 @@ then
 fi
 
 curl -L https://get.oh-my.fish | fish
+fish -c "omf install bobthefish"
