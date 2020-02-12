@@ -40,7 +40,13 @@ wget -O ~/.config/nvim/autoload/plug.vim \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 secho "Installing vim Vundle"
-git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+if [[ ! -d $HOME/.vim/bundle/Vundle.vim ]]
+then
+    echo -e "  Cloning to ~/.vim/bundle/Vundle.vim"
+    git clone https://github.com/VundleVim/Vundle.vim.git $HOME/.vim/bundle/Vundle.vim
+else
+    echo -e "  Vundle.vim directory already exists. Skipping install"
+fi
 
 secho "Installing vim Vundle plugins"
 vim +PluginInstall +qall
@@ -62,5 +68,9 @@ ln -snf $PWD/fish $ORIGINAL_FISHCONF_FOLDER
 echo $ORIGINAL_GITCONF
 ln -snf $PWD/git/gitconfig $ORIGINAL_GITCONF
 
-lecho "Setting default shell to fish (needs password)"
-chsh -s /usr/bin/fish
+lecho "Set default shell to fish?  (needs password)"
+read -p "Set fish (y/n):  " -n 1 -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    chsh -s /usr/bin/fish
+fi
