@@ -76,3 +76,5 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     chsh -s /usr/bin/fish
 fi
+
+curl -L https://get.oh-my.fish | fish
