@@ -21,3 +21,8 @@
 
 [status]
     showUntrackedFiles = all
+
+[alias]
+    current = rev-parse --abbrev-ref HEAD
+    remote-diff = !CURRENT=$(git current) && git diff $CURRENT..$1/$CURRENT
+    overwrite = !CURRENT=$(git current) && git push --force-with-lease $CURRENT origin/$CURRENT
